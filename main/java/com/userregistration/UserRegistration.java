@@ -1,4 +1,5 @@
 package com.userregistration;
+import java.util.Scanner;
 import java.util.regex.Pattern;
 
 /*@Description- class checks the entries for a user registration whether
