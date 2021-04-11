@@ -65,6 +65,7 @@ public class UserRegistration
             Pattern pattern = Pattern.compile("(\"[A-Z0-9a-z$%&*@!#]{8,}\", password) && (\".*[A-Z].*\", password) && (\".*[0-9].*\", password) && (\".*[\\W]{1}.*\", password)");
             Matcher matcher = pattern.matcher(password);
             boolean check4 = matcher.find();
+
             if(check4)
                 System.out.println("valid password");
             else
