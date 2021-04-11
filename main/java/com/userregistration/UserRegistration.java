@@ -1,43 +1,75 @@
 package com.userregistration;
-import java.util.Scanner;
+
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/*@Description- class checks the entries for a user registration whether
- * a name is valid or not */
+interface UserValidation
+{
+    public abstract void userValidation(String var);
+}
 
-public class UserRegistration {
-    // UC1 - First name starts with Cap and has minimum 3 characters
-    public boolean firstName(String fN) {
-        return (Pattern.matches("[A-Z]{1}[a-z]{3,}", fN) == true);
+public class UserRegistration
+{
+    public static void main(String[] args) {
+
+        //first name using lambda expression
+        UserValidation validation = (firstName) ->{
+            Pattern pattern = Pattern.compile("^[A-Z][a-zA-Z]{3,}$");
+            Matcher matcher = pattern.matcher(firstName);
+            boolean check = matcher.find();
+            if(check)
+                System.out.println("valid first name");
+            else
+                System.out.println("invalid name");
+        };
+        validation.userValidation("Devendra");
+
+        //last name using lambda expression
+        UserValidation validation1 = (lastName) ->{
+            Pattern pattern = Pattern.compile("^[A-Z][a-zA-Z]{3,}$");
+            Matcher matcher = pattern.matcher(lastName);
+            boolean check1 = matcher.find();
+            if (check1)
+                System.out.println("valid last name");
+            else
+                System.out.println("invalid last name");
+        };
+        validation1.userValidation("Kumar");
+
+        //email using lambda expression
+        UserValidation validation2 = (email) ->{
+            Pattern pattern = Pattern.compile("[a-zA-Z0-9][a-zA-Z0-9_.]*@[a-zA-Z0-9]+([.][a-zA-Z]+)+");
+            Matcher matcher = pattern.matcher(email);
+            boolean check2 = matcher.find();
+            if(check2)
+                System.out.println("valid email");
+            else
+                System.out.println("invalid email");
+        };
+        validation2.userValidation("devendra.raj.sdm@gmail.com");
+
+        //mobile number using lambda expression
+        UserValidation validation3 = (mobileNumber) ->{
+            Pattern pattern = Pattern.compile("(0|91)?\\s{1}[6-9][0-9]{9}");
+            Matcher matcher = pattern.matcher(mobileNumber);
+            boolean check3 = matcher.find();
+            if(check3)
+                System.out.println("valid mobile number");
+            else
+                System.out.println("invalid mobile number");
+        };
+        validation3.userValidation("91 8123273639");
+
+        //password using lambda expression
+        UserValidation userValidation4 = (password) ->{
+            Pattern pattern = Pattern.compile("(\"[A-Z0-9a-z$%&*@!#]{8,}\", password) && (\".*[A-Z].*\", password) && (\".*[0-9].*\", password) && (\".*[\\W]{1}.*\", password)");
+            Matcher matcher = pattern.matcher(password);
+            boolean check4 = matcher.find();
+            if(check4)
+                System.out.println("valid password");
+            else
+                System.out.println("invalid password");
+        };
+        userValidation4.userValidation("Deva@88242");
     }
-
-    // UC2 - Last name starts with Cap and has minimum 3 characters
-    public boolean lastName(String lN) {
-        return (Pattern.matches("[A-Z]{1}[a-z]{3,}", lN) == true);
-    }
-
-    /*
-     * UC 3 - enter a valid email UC 9 - Cleared All Sample Provided
-     */
-    public boolean email(String emailId) {
-        return (Pattern.matches("[a-zA-Z0-9][a-zA-Z0-9_.]*@[a-zA-Z0-9]+([.][a-zA-Z]+)+", emailId) == true);
-    }
-
-    // UC4 - Mobile Format
-    public boolean mobile(String mobileNum) {
-        return(Pattern.matches("(0|91)?\\s{1}[6-9][0-9]{9}", mobileNum) == true);
-    }
-
-    // UC 5 to 8 - Password
-    public boolean password(String pass) {
-        return ((Pattern.matches("[A-Z0-9a-z$%&*@!#]{8,}", pass) && Pattern.matches(".*[A-Z].*", pass) && Pattern.matches(".*[0-9].*", pass) && Pattern.matches(".*[\\W]{1}.*", pass)) == true);
-    }
-
-    public String happySad(String word) {
-        if (word.contains("Sad"))
-            return "Sad";
-        else
-            return "Happy";
-    }
-
 }
